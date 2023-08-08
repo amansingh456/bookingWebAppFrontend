@@ -3,7 +3,7 @@ import { styled } from 'styled-components'
 import useFetch from '../../hooks/useFetch'
 
 const PropertyList = () => {
-   const { data, loading, error } = useFetch("/hotels/countByType")
+   const { data, loading, error } = useFetch("/api/hotels/countByType")
    console.log('data: ', data);
    const images = [
       "hotel.jpg",

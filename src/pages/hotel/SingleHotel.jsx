@@ -5,14 +5,15 @@ import MailList from "../../components/homeList/MailList"
 import Footer from "../../components/footer/Footer"
 import { ImLocation2 } from 'react-icons/im'
 import useFetch from '../../hooks/useFetch'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { SearchContext } from '../../context/SearchContext'
 const SingleHotel = () => {
+  const navigate = useNavigate()
   const location = useLocation()
   const id = location.pathname.split("/")[2]
 
-  const { data, loading } = useFetch(`/hotels/find/${id}`)
+  const { data, loading } = useFetch(`/api/hotels/find/${id}`)
   
   const {dates} = useContext(SearchContext)
   //! for counting how many days
@@ -81,7 +82,7 @@ const SingleHotel = () => {
               <H2>
                 <b>${totalDays*data.price}</b> ({totalDays} nights)
               </H2>
-              <Button>Reserve or Book Now!</Button>
+              <Button onClick={()=>navigate("/login")}>Reserve or Book Now!</Button>
             </HotelDetailsPrice>
           </HotelDetails>
         </HotelWrapper>

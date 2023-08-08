@@ -1,17 +1,26 @@
+import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { AuthContext } from '../../context/AuthContext'
 const Navbar = () => {
   const navigate = useNavigate()
+  const {user, dispatch} = useContext(AuthContext)
+  const handleClick = () =>{
+    console.log("Im clicked")
+    dispatch({type:"LOGOUT"})
+  }
   return (
     <Navbarr>
       <NavContainer>
         <Link to="/" style={{color:"inherit", textDecoration:"none"}}>
           <Logo onClick={()=>navigate("/")}>BlisStay</Logo>
         </Link>
-        <NavBtns>
+        {user ? <Button onClick={handleClick}>Logout</Button> : (
+            <NavBtns>
             <Button>Register</Button>
             <Button>Login</Button>
         </NavBtns>
+        )}
       </NavContainer>
     </Navbarr>
   )
@@ -49,5 +58,6 @@ const Button = styled.button`
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+  font-weight: 500;
   color: #003580;
 `

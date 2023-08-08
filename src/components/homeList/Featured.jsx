@@ -3,7 +3,7 @@ import { styled } from 'styled-components'
 import useFetch from '../../hooks/useFetch'
 
 const Featured = () => {
-   const { data, loading, error } = useFetch("/hotels/countByCity?cities=berlin,london,gwalior")
+   const { data, loading, error } = useFetch("/api/hotels/countByCity?cities=berlin,london,gwalior")
    console.log('data: ', data);
    return (
       <Featuredd>

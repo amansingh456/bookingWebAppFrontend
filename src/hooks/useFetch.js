@@ -10,7 +10,7 @@ const useFetch = (url) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`https://concerned-miniskirt-pig.cyclic.app/api${url}`);
+        const res = await axios.get(`https://tender-bass-sweatpants.cyclic.app${url}`);
         setData(res.data);
       } catch (error) {
         setError(error);

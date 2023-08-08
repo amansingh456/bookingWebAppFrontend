@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { styled } from 'styled-components'
 import { FaBed, FaCar, FaPlane, FaTaxi } from "react-icons/fa"
 import { MdAttractions } from "react-icons/md"
 import HeaderSearch from './HeaderSearch'
+import { AuthContext } from '../../context/AuthContext'
 
 const Header = ({type}) => {
+    const {user} = useContext(AuthContext)
+    const firstName = user?.otherDetails.userName.split(" ")
     return (
         <Headerr>
             <HeaderContainer type>
@@ -34,7 +37,7 @@ const Header = ({type}) => {
                <>
                     <HeaderTitle>A lifetime of discounts ? It's Genius.</HeaderTitle>
                     <HeaderDesc>Get rewarded for your travels - unlock instant savings of 10% or more with a free amanBooking account.</HeaderDesc>
-                    <HeaderButton>Sign in / Register</HeaderButton>
+                    {user ? <Span>Hello <span style={{fontWeight:"600", fontSize:"20px", color:"#febb02"}}>Mr. {firstName[0]},</span> where do you intend to go..</Span> : <HeaderButton>Sign in / Register</HeaderButton>}
                     <HeaderSearch />
                 </>}
             </HeaderContainer>
@@ -83,6 +86,17 @@ const HeaderButton = styled.button`
     font-weight: 500;
     border: none;
     padding: 10px;
+    cursor: pointer;
+    margin-bottom: 30px;
+`
+const Span = styled.button`
+    background-color: #003580;
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    border: none;
+    padding: 10px;
+    padding-left: 0px;
     cursor: pointer;
     margin-bottom: 30px;
 `

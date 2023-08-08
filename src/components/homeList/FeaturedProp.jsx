@@ -3,7 +3,7 @@ import { styled } from 'styled-components'
 import useFetch from '../../hooks/useFetch';
 
 const FeaturedProp = () => {
-   const { data, loading, error } = useFetch("/hotels?featured=true")
+   const { data, loading, error } = useFetch("/api/hotels?featured=true")
    console.log('data: ', data);
    const images = [
       "hotel3.jpeg",
