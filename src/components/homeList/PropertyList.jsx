@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from 'styled-components'
 import useFetch from '../../hooks/useFetch'
+import { useNavigate } from 'react-router-dom'
 
 const PropertyList = () => {
+   const [destination, setDestination] = useState("where are you going ?")
+   const [dates, setDates] = useState([
+      {
+         startDate: new Date(),
+         endDate: new Date(),
+         key: 'selection'
+      }
+   ]);
+   const [option, setOption] = useState({
+      adult: 1,
+      children: 0,
+      room: 1
+   })
+   const navigate = useNavigate()
+   const handleNavigate = () =>{
+      navigate("/hotels",{state:{destination,dates,option}})
+   }
+
+
    const { data, loading, error } = useFetch("/api/hotels/countByType")
    console.log('data: ', data);
    const images = [
@@ -17,7 +37,7 @@ const PropertyList = () => {
          {loading ? "...Loading Please Wait !" :
             <>
                {data && images?.map((img,i) => (
-                  <PlistItem key={i}>
+                  <PlistItem key={i} onClick={handleNavigate}>
                      <PlistItemImg src={img} alt="" />
                      <PlistTitles>
                         <H1>{data[i]?.type}</H1>

@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from 'styled-components'
 import useFetch from '../../hooks/useFetch';
+import { useNavigate } from 'react-router-dom';
 
 const FeaturedProp = () => {
+   const [destination, setDestination] = useState("where are you going ?")
+   const [dates, setDates] = useState([
+      {
+         startDate: new Date(),
+         endDate: new Date(),
+         key: 'selection'
+      }
+   ]);
+   const [option, setOption] = useState({
+      adult: 1,
+      children: 0,
+      room: 1
+   })
+   const navigate = useNavigate()
+   const handleNavigate = () =>{
+      navigate("/hotels",{state:{destination,dates,option}})
+   }
+
+
+
    const { data, loading, error } = useFetch("/api/hotels?featured=true")
    console.log('data: ', data);
    const images = [
@@ -15,7 +36,7 @@ const FeaturedProp = () => {
       <FProp>
          {loading ? "...Laoding !" : <>
             {data && images?.map((img, i) => (
-               <FPropItem key={i}>
+               <FPropItem key={i} onClick={handleNavigate}>
                   <FPropImg src={img} alt='' />
                   <FPropName>{data[i]?.name}</FPropName>
                   <FPropCity>{data[i]?.city}</FPropCity>

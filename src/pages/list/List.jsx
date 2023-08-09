@@ -13,8 +13,11 @@ const List = () => {
   const [min,setMin] = useState(undefined)
    const [max,setMax] = useState(undefined)
 
-   const {data, loading,  reFetch} = useFetch(`/api/hotels?city=${destination}&min=${min || 10}&max=${max || 400000}`)
-   console.log('data: ', data);
+  const basicUrl = `/api/hotels`
+  const varietyUrl = `/api/hotels?city=${destination}&min=${min || 10}&max=${max || 400000}`
+  const url = destination==="where are you going ?" ?basicUrl:varietyUrl
+
+   const {data, loading,  reFetch} = useFetch(url)
  
   return (
     <div>  

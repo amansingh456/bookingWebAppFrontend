@@ -9,6 +9,7 @@ import { styled } from 'styled-components'
 const ListSearch = ({setMax, setMin, reFetch, setDestination, destination}) => {
    const location = useLocation()
    const [dates, setDates] = useState(location.state.dates)
+   console.log('dates: ', dates);
    const [opendate, setOpenDate] = useState(false)
    const [option, setOption] = useState(location.state.option)
    

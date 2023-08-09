@@ -1,29 +1,46 @@
-import React from 'react'
+import React, {  useState } from 'react'
 import { styled } from 'styled-components'
 import useFetch from '../../hooks/useFetch'
+import { useNavigate } from 'react-router-dom'
 
 const Featured = () => {
-   const { data, loading, error } = useFetch("/api/hotels/countByCity?cities=berlin,london,gwalior")
-   console.log('data: ', data);
+   const [destination, setDestination] = useState("where are you going ?")
+   const [dates, setDates] = useState([
+      {
+         startDate: new Date(),
+         endDate: new Date(),
+         key: 'selection'
+      }
+   ]);
+   const [option, setOption] = useState({
+      adult: 1,
+      children: 0,
+      room: 1
+   })
+   const navigate = useNavigate()
+   const handleNavigate = () =>{
+      navigate("/hotels",{state:{destination,dates,option}})
+   }
+   const { data, loading, error } = useFetch("/api/hotels/countByCity?cities=bhind,london,gwalior")
    return (
       <Featuredd>
          {loading ? "...Loading Please Wait !" :
             <>
-               <FeaturedItem>
+               <FeaturedItem onClick={handleNavigate}>
                   <FeaturedImg src='/dublin.jpg' alt='' />
                   <FeaturedTitle>
-                     <H1>Berlin</H1>
+                     <H1>Bhind</H1>
                      <H1>{data[0]} properties</H1>
                   </FeaturedTitle>
                </FeaturedItem>
-               <FeaturedItem>
+               <FeaturedItem onClick={handleNavigate}>
                   <FeaturedImg src='/austin.jpg' alt='' />
                   <FeaturedTitle>
                      <H1>London</H1>
                      <H1>{data[1]} properties</H1>
                   </FeaturedTitle>
                </FeaturedItem>
-               <FeaturedItem>
+               <FeaturedItem onClick={handleNavigate}>
                   <FeaturedImg src='/reno.jpg' alt='' />
                   <FeaturedTitle>
                      <H1>Reno</H1>
@@ -56,6 +73,7 @@ const FeaturedImg = styled.img`
    width: 100%;
    height: 100%;
    object-fit: cover;
+   cursor: pointer;
 `
 const FeaturedTitle = styled.div`
    position: absolute;
