@@ -6,7 +6,7 @@ import Footer from "../../components/footer/Footer"
 import { ImLocation2 } from 'react-icons/im'
 import useFetch from '../../hooks/useFetch'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { SearchContext } from '../../context/SearchContext'
 const SingleHotel = () => {
   const navigate = useNavigate()
@@ -14,16 +14,33 @@ const SingleHotel = () => {
   const id = location.pathname.split("/")[2]
 
   const { data, loading } = useFetch(`/api/hotels/find/${id}`)
+
+
+
+  var { dates } = useContext(SearchContext)
+  console.log('dates: ', dates[0]);
+
+  if (dates[0]===undefined) {
+    dates = [
+      {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: 'selection'
+      }
+    ]
+  }
+
   
-  const {dates} = useContext(SearchContext)
+
   //! for counting how many days
-  const MILLISECONDS_PER_DAY = 1000*60*60*24
-  function dayDiffernce(date1,date2){
-    const timeDiff = Math.abs(date2.getTime()-date1.getTime())
-    const diffDays = Math.ceil(timeDiff/MILLISECONDS_PER_DAY)
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24
+  function dayDiffernce(date1, date2) {
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime())
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY)
     return diffDays
   }
-  const totalDays = dayDiffernce(dates[0].endDate, dates[0].startDate)
+
+  var totalDays = dayDiffernce(dates[0].endDate, dates[0].startDate)
 
   const photos = [
     {
@@ -65,7 +82,7 @@ const SingleHotel = () => {
             Book a stay over ${data.price} at this property and get a free airport taxi
           </HotelPriceHighlight>
           <HotelImages>
-            {photos?.map((photo,i) => (
+            {photos?.map((photo, i) => (
               <HotelImagesWrapper key={i}>
                 <HotelImage src={photo.src} />
               </HotelImagesWrapper>
@@ -80,9 +97,10 @@ const SingleHotel = () => {
               <H1>Perfect for a {totalDays}-night stay!</H1>
               <Span2>Located in Bhopal, a 10-minute walk from Habibganj Station, free private parking, a terrace and a bar</Span2>
               <H2>
-                <b>${totalDays*data.price}</b> ({totalDays} nights)
+                {/* {console.log(totalDays)} */}
+                <b>{totalDays===0? totalDays=1: totalDays}${totalDays * data.price}</b> ({totalDays} nights)
               </H2>
-              <Button onClick={()=>navigate("/login")}>Reserve or Book Now!</Button>
+              <Button onClick={() => navigate("/login")}>Reserve or Book Now!</Button>
             </HotelDetailsPrice>
           </HotelDetails>
         </HotelWrapper>
