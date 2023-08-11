@@ -45,6 +45,7 @@ export default Login
 
 
 const Loginn = Styled.div`
+   display:flex;
    
 `
 const LoginCont = Styled.div`
