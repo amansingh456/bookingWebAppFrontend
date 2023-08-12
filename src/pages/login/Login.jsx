@@ -46,7 +46,7 @@ export default Login
 
 const Loginn = Styled.div`
    display:flex;
-   
+   flex-direction:column;
 `
 const LoginCont = Styled.div`
    
