@@ -6,6 +6,8 @@ const  App = () => {
     <>
       <div>
         <AllRoutes/>
+
+        {/* all set */}
       </div>
     </>
   )
