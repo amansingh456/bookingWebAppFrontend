@@ -45,11 +45,11 @@ export default Login
 
 
 const Loginn = Styled.div`
+   
+`
+const LoginCont = Styled.div`
    display:flex;
    flex-direction:column;
    width:40%;
    margin:auto;
-`
-const LoginCont = Styled.div`
-   
 `
