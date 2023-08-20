@@ -54,4 +54,5 @@ const LoginCont = Styled.div`
    flex-direction:column;
    width:40%;
    margin:auto;
+   border:1px solid red
 `
