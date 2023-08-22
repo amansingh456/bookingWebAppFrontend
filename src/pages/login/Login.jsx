@@ -56,4 +56,5 @@ const LoginCont = Styled.div`
    margin:auto;
    border:1px solid red;
    border-radius:10px;
+   border:none;
 `
